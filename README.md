@@ -1,50 +1,53 @@
-# Studio Server Setup
+# Studio Discord Setup Bot
 
-A Discord setup bot for a **creative Studio** — designed around a studio workspace, portfolio/showcase, collaboration, project rooms, and a private backstage area. It is intentionally **not** a generic gaming server template.
+A tailored setup bot for **Studio**, a programming and technology community. This is not a generic gaming server or an editing/creator studio template.
 
-## What it creates
+## Role groups
 
-### Roles
+### Staff
 - 𝓞𝔀𝓷𝓮𝓻
-- 𝓢𝓽𝓾𝓭𝓲𝓸 𝓛𝓮𝓪𝓭
-- 𝓐𝓻𝓽 𝓓𝓲𝓻𝓮𝓬𝓽𝓸𝓻
-- 𝓓𝓮𝓼𝓲𝓰𝓷𝓮𝓻
-- 𝓔𝓭𝓲𝓽𝓸𝓻
+- 𝓒𝓸-𝓞𝔀𝓷𝓮𝓻
+- 𝓜𝓪𝓷𝓪𝓰𝓮𝓻
 - 𝓓𝓮𝓿𝓮𝓵𝓸𝓹𝓮𝓻
-- 𝓒𝓻𝓮𝓪𝓽𝓸𝓻
+- 𝓐𝓭𝓶𝓲𝓷
+- 𝓜𝓸𝓭𝓮𝓻𝓪𝓽𝓸𝓻
+- 𝓗𝓮𝓵𝓹𝓮𝓻
+
+### Minecraft clients and community
+- 𝓛𝓾𝓷𝓪𝓻 𝓒𝓵𝓲𝓮𝓷𝓽
+- 𝓑𝓪𝓭𝓵𝓲𝓸𝓷 𝓒𝓵𝓲𝓮𝓷𝓽
+- 𝓕𝓮𝓪𝓽𝓱𝓮𝓻 𝓒𝓵𝓲𝓮𝓷𝓽
+- 𝓥𝓘𝓟
+- 𝓟𝓻𝓮𝓶𝓲𝓾𝓶
+- 𝓑𝓸𝓸𝓼𝓽𝓮𝓻
+- 𝓨𝓸𝓾𝓣𝓾𝓫𝓮𝓻
+- 𝓢𝓽𝓻𝓮𝓪𝓶𝓮𝓻
 - 𝓜𝓮𝓶𝓫𝓮𝓻
 
-### Categories and channels
-- **STUDIO DESK** — welcome, announcements, studio guide, role selection
-- **THE CREATIVE FLOOR** — studio chat, showcase, work in progress, ideas, collaborations
-- **PROJECT ROOMS** — design, editing, development, resources
-- **STUDIO LOUNGE** — Studio Lounge, Focus Room, Feedback Room voice channels
-- **BACKSTAGE** — private staff room and staff logs
-
-The setup command is safe to rerun: existing matching roles, categories, and channels are skipped. It does not delete or rename existing items. Review `/setup mode: Preview only` before applying.
+## Categories
+- **Studio Info** — welcome, announcements, rules, information, roles
+- **Community** — chat, bot commands, questions, suggestions, showcase
+- **Programming** — coding, Python, Java, web development, tools, code review
+- **Minecraft Clients** — Lunar Client, Badlion Client, Feather Client, PvP
+- **Support** — tickets, Premium support, client support, FAQ
+- **Voice** — general, coding, gaming
+- **Staff Rooms** — private staff chat, logs, development room
 
 ## Requirements
-- Node.js 20.11+
-- A Discord application and bot
-- Bot permissions: Manage Roles, Manage Channels, View Channels, Send Messages, Read Message History
-- The bot's highest role must be above the roles it needs to manage.
+- Node.js 20.11 or newer
+- Discord bot with Manage Roles, Manage Channels, View Channels, and Send Messages permissions
+- Place the bot's highest role above the roles it creates
 
-## Configure and run
-1. In the Discord Developer Portal, create a bot and copy its token.
-2. Invite it to your Studio server with the permissions listed above and the `applications.commands` OAuth2 scope.
-3. Copy `.env.example` to `.env`.
-4. Fill in `DISCORD_TOKEN`, `CLIENT_ID`, and `GUILD_ID`.
-5. Run `npm install`.
-6. Run `npm run deploy` to register the slash commands.
-7. Run `npm start`.
-8. In Discord, run `/setup` with **Preview only** first. When the preview looks right, run it again with **Create Studio layout**.
+## Setup
+1. Create a bot in the Discord Developer Portal and invite it with the `bot` and `applications.commands` scopes.
+2. Copy `.env.example` to `.env` and set `DISCORD_TOKEN`, `CLIENT_ID`, and `GUILD_ID`.
+3. Run `npm install`.
+4. Run `npm run deploy`.
+5. Run `npm start`.
+6. Run `/setup` with **Preview only** before choosing **Create Studio layout**.
 
 ## Commands
-- `/setup mode: Preview only` — preview the layout without making changes.
-- `/setup mode: Create Studio layout` — create missing Studio roles, categories, and channels.
-- `/studio-status` — check that the bot is online.
+- `/setup` — preview or create the configured roles and channels.
+- `/studio-status` — check the bot status.
 
-## Security
-- Never commit `.env` or share the bot token.
-- The bot does not assign roles to members or grant the Owner role to anyone automatically.
-- Existing category permissions are not overwritten.
+The setup skips matching existing items and does not delete channels or roles. It does not assign paid/community roles to members automatically. Never commit `.env` or share the bot token.
