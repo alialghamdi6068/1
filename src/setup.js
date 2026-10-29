@@ -10,7 +10,9 @@ async function previewSetup(guild) {
   const lines = ["**Studio setup preview**", "", "**Roles**", ...roles.map((r) => `• ${r.name}`), "", "**Categories and channels**"];
   for (const category of categories) {
     lines.push(`**${category.name}**${category.staffOnly ? " *(staff only)*" : ""}`);
-    for (const channel of category.channels) lines.push(`• ${channel.type === "voice" ? "🔊" : "#"} ${channel.name}`);
+    for (const channel of category.channels) {
+      lines.push(`• ${channel.type === "voice" ? "🔊" : "#"} ${channel.name}${channel.readOnly ? " *(read-only)*" : ""}`);
+    }
   }
   lines.push("", "Preview only: nothing has been created or changed.");
   return lines.join("\n").slice(0, 3900);
@@ -53,7 +55,10 @@ async function applySetup(guild) {
     const permissionOverwrites = categorySpec.staffOnly
       ? [
           { id: everyone.id, deny: [PermissionFlagsBits.ViewChannel] },
-          ...staffRoles.map((role) => ({ id: role.id, allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory] })),
+          ...staffRoles.map((role) => ({
+            id: role.id,
+            allow: [PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory],
+          })),
         ]
       : [];
 
@@ -68,7 +73,6 @@ async function applySetup(guild) {
       await wait(350);
     } else {
       results.skipped++;
-      // Keep existing category permissions untouched to avoid overwriting custom configuration.
     }
 
     for (const channelSpec of categorySpec.channels) {
@@ -83,8 +87,11 @@ async function applySetup(guild) {
 
       const channelOverwrites = categorySpec.staffOnly
         ? permissionOverwrites
-        : channelSpec.name.includes("announcements")
-          ? [{ id: everyone.id, deny: [PermissionFlagsBits.SendMessages] }, ...staffRoles.map((role) => ({ id: role.id, allow: [PermissionFlagsBits.SendMessages] }))]
+        : channelSpec.readOnly
+          ? [
+              { id: everyone.id, deny: [PermissionFlagsBits.SendMessages] },
+              ...staffRoles.map((role) => ({ id: role.id, allow: [PermissionFlagsBits.SendMessages] })),
+            ]
           : [];
 
       await guild.channels.create({
