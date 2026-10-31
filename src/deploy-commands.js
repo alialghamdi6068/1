@@ -57,7 +57,21 @@ const communityCommands = [
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 ];
 
+const engagementCommands = [
+  new SlashCommandBuilder().setName("rank").setDescription("عرض مستواك أو مستوى عضو")
+    .addUserOption(o => o.setName("user").setDescription("العضو").setRequired(false)),
+  new SlashCommandBuilder().setName("leaderboard").setDescription("أفضل 10 أعضاء حسب XP"),
+  new SlashCommandBuilder().setName("levels").setDescription("إعداد نظام المستويات")
+    .addStringOption(o => o.setName("mode").setDescription("الإجراء").setRequired(true)
+      .addChoices({name:"Enable",value:"enable"},{name:"Disable",value:"disable"},{name:"Announcement channel",value:"channel"}))
+    .addChannelOption(o => o.setName("channel").setDescription("روم إعلان الترقية").addChannelTypes(0).setRequired(false))
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+  new SlashCommandBuilder().setName("afk").setDescription("تفعيل حالة AFK")
+    .addStringOption(o => o.setName("reason").setDescription("سبب الغياب").setMaxLength(200).setRequired(false)),
+];
+
 const commands = [
+  ...engagementCommands,
   ...adminCommands,
   ...communityCommands,
   ticketCommand,
