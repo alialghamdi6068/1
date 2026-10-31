@@ -70,6 +70,11 @@ const engagementCommands = [
     .addStringOption(o => o.setName("reason").setDescription("سبب الغياب").setMaxLength(200).setRequired(false)),
 ];
 
+const extraCommands = [
+ new SlashCommandBuilder().setName("poll").setDescription("Create a community poll").addStringOption(o=>o.setName("question").setDescription("Poll question").setMaxLength(200).setRequired(true)).addStringOption(o=>o.setName("options").setDescription("Options separated by |").setMaxLength(400).setRequired(true)),
+ new SlashCommandBuilder().setName("poll-end").setDescription("Close a poll").addIntegerOption(o=>o.setName("id").setDescription("Poll ID").setMinValue(1).setRequired(true)).setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+];
+
 const commands = [
   ...extraCommands,
   ...engagementCommands,

@@ -7,6 +7,7 @@ const { configureLogs, moderate, warnings, logEvents } = require("./admin");
 const { suggestions, handleSuggestionVote, autorole, assignAutorole, announce } = require("./community");
 const { handleMessage, rank, leaderboard, levelSettings, setAfk } = require("./engagement");
 const extra = require("./extra");
+const polls = require("./polls");
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -32,6 +33,7 @@ client.on(Events.InteractionCreate, async interaction => {
     try {
       if (await handleSuggestionVote(interaction)) return;
       if (await extra.handleButton(interaction)) return;
+      if (await polls.button(interaction)) return;
       await handleTicketComponent(interaction);
     } catch (error) {
       console.error("[components] Failed:", error);
@@ -61,6 +63,8 @@ client.on(Events.InteractionCreate, async interaction => {
     if (interaction.commandName === "leaderboard") return await leaderboard(interaction);
     if (interaction.commandName === "levels") return await levelSettings(interaction);
     if (interaction.commandName === "afk") return await setAfk(interaction);
+    if (interaction.commandName === "poll") return await polls.create(interaction);
+    if (interaction.commandName === "poll-end") return await polls.end(interaction);
     if (interaction.commandName === "giveaway") return await extra.giveaway(interaction);
     if (interaction.commandName === "remind") return await extra.reminder(interaction);
     if (interaction.commandName === "info") return await extra.info(interaction);
