@@ -1,7 +1,25 @@
 require("dotenv").config();
 const { REST, Routes, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
+const welcomeCommand = new SlashCommandBuilder()
+  .setName("welcome")
+  .setDescription("إعداد رسائل الترحيب في Ali Studio")
+  .addSubcommand(s => s.setName("setup").setDescription("تحديد روم الترحيب وتشغيله").addChannelOption(o => o.setName("channel").setDescription("روم الترحيب").addChannelTypes(0).setRequired(true)))
+  .addSubcommand(s => s.setName("channel").setDescription("تغيير روم الترحيب").addChannelOption(o => o.setName("channel").setDescription("الروم الجديد").addChannelTypes(0).setRequired(true)))
+  .addSubcommand(s => s.setName("title").setDescription("تعديل عنوان الإيمبد").addStringOption(o => o.setName("text").setDescription("العنوان، يدعم {user}").setRequired(true)))
+  .addSubcommand(s => s.setName("message").setDescription("تعديل نص الترحيب").addStringOption(o => o.setName("text").setDescription("النص، يدعم {user} و{username} و{server}").setRequired(true)))
+  .addSubcommand(s => s.setName("color").setDescription("تغيير لون الإيمبد").addStringOption(o => o.setName("hex").setDescription("مثال #6D4AFF").setRequired(true)))
+  .addSubcommand(s => s.setName("footer").setDescription("تعديل تذييل الإيمبد").addStringOption(o => o.setName("text").setDescription("نص التذييل").setRequired(true)))
+  .addSubcommand(s => s.setName("count").setDescription("إظهار أو إخفاء عدد الأعضاء").addBooleanOption(o => o.setName("enabled").setDescription("إظهار العدد").setRequired(true)))
+  .addSubcommand(s => s.setName("preview").setDescription("معاينة الإيمبد"))
+  .addSubcommand(s => s.setName("test").setDescription("معاينة الترحيب لك بشكل خاص").addUserOption(o => o.setName("member").setDescription("عضو للمعاينة").setRequired(false)))
+  .addSubcommand(s => s.setName("settings").setDescription("عرض إعدادات الترحيب"))
+  .addSubcommand(s => s.setName("enable").setDescription("تشغيل الترحيب"))
+  .addSubcommand(s => s.setName("disable").setDescription("إيقاف الترحيب"))
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild);
+
 const commands = [
+
   new SlashCommandBuilder()
     .setName("setup")
     .setDescription("Preview or create the tailored Ali Ali Studio server layout")
