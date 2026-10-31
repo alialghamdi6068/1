@@ -19,6 +19,7 @@ const welcomeCommand = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild);
 
 const commands = [
+  welcomeCommand.toJSON(),
 
   new SlashCommandBuilder()
     .setName("setup")
