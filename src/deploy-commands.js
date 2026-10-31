@@ -27,8 +27,8 @@ const ticketCommand = new SlashCommandBuilder()
  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild);
 
 const commands = [
-  ticketCommand.toJSON(),
-  welcomeCommand.toJSON(),
+  ticketCommand,
+  welcomeCommand,
 
   new SlashCommandBuilder()
     .setName("setup")
