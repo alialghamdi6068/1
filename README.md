@@ -1,62 +1,77 @@
-# Ali Studio Discord Setup Bot
+# Ali Studio Discord Bot
 
-A tailored setup bot for **Ali Studio**, a programming and technology community. This is not a generic gaming server or an editing/creator template.
+A Discord community bot for **Ali Studio** with server setup, welcome messages, private tickets, moderation, logs, suggestions, automatic member roles, and announcements.
 
-## Role groups
+## Included systems
 
-### Staff
-- 𝓞𝔀𝓷𝓮𝓻
-- 𝓒𝓸-𝓞𝔀𝓷𝓮𝓻
-- 𝓜𝓪𝓷𝓪𝓰𝓮𝓻
-- 𝓓𝓮𝓿𝓮𝓵𝓸𝓹𝓮𝓻
-- 𝓐𝓭𝓶𝓲𝓷
-- 𝓜𝓸𝓭𝓮𝓻𝓪𝓽𝓸𝓻
-- 𝓗𝓮𝓵𝓹𝓮𝓻
+- **Server setup:** creates the configured staff/community roles and channel categories. Preview is available before applying; existing channels and roles are not deleted.
+- **Welcome:** customizable embed, member avatar, member count, channel selection, preview and test.
+- **Tickets:** private ticket channels, owner close, staff reopen/delete, sequential ticket numbers, and transcript export to the configured log channel.
+- **Moderation:** ban, kick, timeout, warn, purge, and member case history.
+- **Logs:** message edit/delete and member join/leave events, plus moderation case logging.
+- **Suggestions:** member submissions, persistent upvote/downvote buttons, and vote totals.
+- **Autorole:** automatically assigns one configured role to new human members.
+- **Announcements:** staff can publish a formatted embed to a selected text channel.
 
-### Minecraft clients and community
-- 𝓛𝓾𝓷𝓪𝓻 𝓒𝓵𝓲𝓮𝓷𝓽
-- 𝓑𝓪𝓭𝓵𝓲𝓸𝓷 𝓒𝓵𝓲𝓮𝓷𝓽
-- 𝓕𝓮𝓪𝓽𝓱𝓮𝓻 𝓒𝓵𝓲𝓮𝓷𝓽
-- 𝓥𝓘𝓟
-- 𝓟𝓻𝓮𝓶𝓲𝓾𝓶
-- 𝓑𝓸𝓸𝓼𝓽𝓮𝓻
-- 𝓨𝓸𝓾𝓣𝓾𝓫𝓮𝓻
-- 𝓢𝓽𝓻𝓮𝓪𝓶𝓮𝓻
-- 𝓜𝓮𝓶𝓫𝓮𝓻
+All persistent bot data is stored in `data/ali-studio.sqlite`. Keep the `data/` directory persistent and include it in your backup routine.
 
-## Categories
-- **Ali Studio Info** — welcome, announcements, rules, information, roles
-- **Community** — chat, bot commands, questions, suggestions, showcase
-- **Programming** — coding, Python, Java, web development, tools, code review
-- **Minecraft Clients** — Lunar Client, Badlion Client, Feather Client, PvP
-- **Support** — tickets, Premium support, client support, FAQ
-- **Voice** — general, coding, gaming
-- **Staff Rooms** — private staff chat, logs, development room
+## Slash commands
 
-## Welcome system\n\nThe `/welcome` command group configures a per-server welcome embed. Settings are stored in SQLite at `data/ali-studio.sqlite` and survive restarts. The embed uses the joining member's own avatar and live server member count.\n\nAvailable commands: `/welcome setup`, `/welcome channel`, `/welcome title`, `/welcome message`, `/welcome color`, `/welcome footer`, `/welcome count`, `/welcome preview`, `/welcome test`, `/welcome settings`, `/welcome enable`, and `/welcome disable`. Text supports `{user}`, `{username}`, `{server}`, and `{member_count}`.\n\nEnable **Server Members Intent** and **Message Content Intent** in the Discord Developer Portal (Bot → Privileged Gateway Intents). These are required for join events and message audit logs. Keep the `data/` directory persistent when hosting and back it up with the bot.\n\n## Ticket system
+| Command | Purpose |
+|---|---|
+| `/setup` | Preview or create the Ali Studio server layout |
+| `/ali-studio-status` | Check bot status |
+| `/welcome setup` | Set welcome channel and enable welcomes |
+| `/welcome channel` | Change welcome channel |
+| `/welcome title`, `message`, `color`, `footer` | Customize the welcome embed |
+| `/welcome count` | Toggle member count |
+| `/welcome preview`, `test`, `settings` | Preview or inspect welcome settings |
+| `/welcome enable`, `disable` | Enable or disable welcomes |
+| `/ticket setup` | Configure ticket panel, category, and transcript log channel |
+| `/mod ban`, `kick`, `timeout`, `warn`, `purge` | Moderation actions |
+| `/warnings` | View a member's moderation history |
+| `/logs setup` | Configure the server event log channel |
+| `/suggest setup` | Set the suggestions channel (staff) |
+| `/suggest submit` | Submit a suggestion |
+| `/suggest disable` | Disable suggestion submissions (staff) |
+| `/autorole set`, `show`, `disable` | Configure automatic member role (staff) |
+| `/announce` | Publish an official announcement (staff) |
 
-Run `/ticket setup` as a server manager and select a text panel channel, a category for ticket channels, and a text log channel. Members open private tickets from the published button. Ticket owners can close their own ticket; managers can reopen or delete tickets. Deletion sends a text transcript to the configured log channel first. Ticket settings and ticket records are stored in the same persistent SQLite database under `data/`.
-
-
-## Moderation and logs
-
-Moderation commands: `/mod ban`, `/mod kick`, `/mod timeout`, `/mod warn`, `/mod purge`, and `/warnings`. Configure event logs with `/logs setup` to receive message edits/deletions and member join/leave events. Moderation cases are stored in SQLite.
+Suggestion votes are persistent. A member can change their vote by selecting the other button; duplicate votes for the same choice are rejected.
 
 ## Requirements
+
 - Node.js 20.11 or newer
-- Discord bot with Manage Roles, Manage Channels, View Channels, and Send Messages permissions
-- Place the bot's highest role above the roles it creates
+- Discord bot application with the `bot` and `applications.commands` scopes
+- Persistent writable storage for the SQLite database
+- Bot permissions appropriate to the enabled systems: View Channels, Send Messages, Embed Links, Read Message History, Manage Channels, Manage Roles, Manage Messages, Ban Members, Kick Members, Moderate Members, and Attach Files
 
-## Setup
-1. Create a bot in the Discord Developer Portal and invite it with the `bot` and `applications.commands` scopes.
-2. Copy `.env.example` to `.env` and set `DISCORD_TOKEN`, `CLIENT_ID`, and `GUILD_ID`.
-3. Run `npm install`.
-4. Run `npm run deploy`.
-5. Run `npm start`.
-6. Run `/setup` with **Preview only** before choosing **Create Ali Studio layout**.
+Place the bot's highest role above every role it needs to assign or moderate. The bot cannot manage roles above its own highest role.
 
-## Commands
-- `/setup` — preview or create the configured roles and channels.
-- `/ali-studio-status` — check the bot status.\n- `/welcome ...` — configure the welcome embed.
+## Discord Developer Portal
 
-The setup skips matching existing items and does not delete channels or roles. It does not assign paid/community roles to members automatically. Never commit `.env` or share the bot token.
+Under **Bot → Privileged Gateway Intents**, enable:
+
+- **Server Members Intent** — required for welcome and autorole join events.
+- **Message Content Intent** — required to include message text in edit/delete logs.
+
+## Installation
+
+1. Create the bot in the Discord Developer Portal and invite it with the required scopes and permissions.
+2. Copy `.env.example` to `.env`.
+3. Set `DISCORD_TOKEN`, `CLIENT_ID`, and `GUILD_ID` in `.env`.
+4. Install dependencies: `npm install`.
+5. Register slash commands: `npm run deploy`.
+6. Start the bot: `npm start`.
+
+Run `npm run check` to validate JavaScript syntax.
+
+## Security and operations
+
+- Never commit `.env` or share the bot token.
+- Keep `data/ali-studio.sqlite` persistent between restarts.
+- Back up the `data/` directory before upgrades or host migrations.
+- Use least-privilege Discord permissions and keep staff-only commands restricted to trusted roles.
+- CI runs the repository's JavaScript syntax checks on pushes and pull requests.
+
+The repository's automated checks do not replace testing interactions on a real Discord test server.
