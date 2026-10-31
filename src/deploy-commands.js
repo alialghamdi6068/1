@@ -70,7 +70,7 @@ const engagementCommands = [
     .addStringOption(o => o.setName("reason").setDescription("سبب الغياب").setMaxLength(200).setRequired(false)),
 ];
 
-const commands = [
+const commands = [\n  ...extraCommands,
   ...engagementCommands,
   ...adminCommands,
   ...communityCommands,
