@@ -18,7 +18,16 @@ const welcomeCommand = new SlashCommandBuilder()
   .addSubcommand(s => s.setName("disable").setDescription("إيقاف الترحيب"))
   .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild);
 
+const ticketCommand = new SlashCommandBuilder()
+ .setName("ticket").setDescription("إدارة نظام التذاكر")
+ .addSubcommand(s=>s.setName("setup").setDescription("إعداد لوحة التذاكر والتصنيف والسجلات")
+  .addChannelOption(o=>o.setName("panel").setDescription("روم لوحة فتح التذاكر").addChannelTypes(0).setRequired(true))
+  .addChannelOption(o=>o.setName("category").setDescription("تصنيف قنوات التذاكر").addChannelTypes(4).setRequired(true))
+  .addChannelOption(o=>o.setName("logs").setDescription("روم سجلات التذاكر").addChannelTypes(0).setRequired(true)))
+ .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild);
+
 const commands = [
+  ticketCommand.toJSON(),
   welcomeCommand.toJSON(),
 
   new SlashCommandBuilder()
