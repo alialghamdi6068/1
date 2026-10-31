@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/index.js",
     "deploy": "node src/deploy-commands.js",
-    "check": "node --check src/index.js && node --check src/setup.js && node --check src/deploy-commands.js && node --check src/welcome.js && node --check src/tickets.js && node --check src/admin.js && node --check src/community.js && node --check src/engagement.js && node --check src/extra.js"
+    "check": "node --check src/index.js && node --check src/setup.js && node --check src/deploy-commands.js && node --check src/welcome.js && node --check src/tickets.js && node --check src/admin.js && node --check src/community.js && node --check src/engagement.js && node --check src/extra.js && node --check src/polls.js"
   },
   "engines": {
     "node": ">=20.11.0"
