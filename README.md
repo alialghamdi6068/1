@@ -12,6 +12,8 @@ A Discord community bot for **Ali Studio** with server setup, welcome messages, 
 - **Suggestions:** member submissions, persistent upvote/downvote buttons, and vote totals.
 - **Autorole:** automatically assigns one configured role to new human members.
 - **Announcements:** staff can publish a formatted embed to a selected text channel.
+- **Levels:** message XP with a 60-second per-member cooldown, level progression, rank cards, leaderboard, and configurable level-up announcements.
+- **AFK:** members can set an AFK reason; the status clears when they speak and is shown when another member mentions them.
 
 All persistent bot data is stored in `data/ali-studio.sqlite`. Keep the `data/` directory persistent and include it in your backup routine.
 
@@ -36,6 +38,10 @@ All persistent bot data is stored in `data/ali-studio.sqlite`. Keep the `data/` 
 | `/suggest disable` | Disable suggestion submissions (staff) |
 | `/autorole set`, `show`, `disable` | Configure automatic member role (staff) |
 | `/announce` | Publish an official announcement (staff) |
+| `/rank` | Show your or another member's level and XP |
+| `/leaderboard` | Show the top 10 members by total XP |
+| `/levels` | Enable, disable, or set level-up announcement channel (staff) |
+| `/afk` | Set your AFK status; it clears when you next chat |
 
 Suggestion votes are persistent. A member can change their vote by selecting the other button; duplicate votes for the same choice are rejected.
 
