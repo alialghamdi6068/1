@@ -33,7 +33,11 @@ A tailored setup bot for **Ali Studio**, a programming and technology community.
 - **Voice** — general, coding, gaming
 - **Staff Rooms** — private staff chat, logs, development room
 
-## Welcome system\n\nThe `/welcome` command group configures a per-server welcome embed. Settings are stored in SQLite at `data/ali-studio.sqlite` and survive restarts. The embed uses the joining member's own avatar and live server member count.\n\nAvailable commands: `/welcome setup`, `/welcome channel`, `/welcome title`, `/welcome message`, `/welcome color`, `/welcome footer`, `/welcome count`, `/welcome preview`, `/welcome test`, `/welcome settings`, `/welcome enable`, and `/welcome disable`. Text supports `{user}`, `{username}`, `{server}`, and `{member_count}`.\n\nEnable the **Server Members Intent** in the Discord Developer Portal (Bot → Privileged Gateway Intents) so join events are delivered. Keep the `data/` directory persistent when hosting and back it up with the bot.\n\n## Requirements
+## Welcome system\n\nThe `/welcome` command group configures a per-server welcome embed. Settings are stored in SQLite at `data/ali-studio.sqlite` and survive restarts. The embed uses the joining member's own avatar and live server member count.\n\nAvailable commands: `/welcome setup`, `/welcome channel`, `/welcome title`, `/welcome message`, `/welcome color`, `/welcome footer`, `/welcome count`, `/welcome preview`, `/welcome test`, `/welcome settings`, `/welcome enable`, and `/welcome disable`. Text supports `{user}`, `{username}`, `{server}`, and `{member_count}`.\n\nEnable the **Server Members Intent** in the Discord Developer Portal (Bot → Privileged Gateway Intents) so join events are delivered. Keep the `data/` directory persistent when hosting and back it up with the bot.\n\n## Ticket system
+
+Run `/ticket setup` as a server manager and select a text panel channel, a category for ticket channels, and a text log channel. Members open private tickets from the published button. Ticket owners can close their own ticket; managers can reopen or delete tickets. Deletion sends a text transcript to the configured log channel first. Ticket settings and ticket records are stored in the same persistent SQLite database under `data/`.
+
+## Requirements
 - Node.js 20.11 or newer
 - Discord bot with Manage Roles, Manage Channels, View Channels, and Send Messages permissions
 - Place the bot's highest role above the roles it creates
