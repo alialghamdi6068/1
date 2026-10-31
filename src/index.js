@@ -11,15 +11,15 @@ if (!token) {
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, (readyClient) => {
-  console.log(`Studio Setup online as ${readyClient.user.tag}`);
+  console.log(`Ali Studio Setup online as ${readyClient.user.tag}`);
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
-  if (interaction.commandName === "studio-status") {
+  if (interaction.commandName === "ali-studio-status") {
     await interaction.reply({
-      content: `Studio Setup is online. Connected to **${interaction.guild.name}**.`,
+      content: `Ali Studio Setup is online. Connected to **${interaction.guild.name}**.`,
       ephemeral: true,
     });
     return;
@@ -27,7 +27,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   if (interaction.commandName !== "setup") return;
   if (!interaction.inGuild() || !interaction.guild) {
-    await interaction.reply({ content: "Use this command inside your Studio server.", ephemeral: true });
+    await interaction.reply({ content: "Use this command inside your Ali Studio server.", ephemeral: true });
     return;
   }
   if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
@@ -45,7 +45,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   try {
     const result = await applySetup(interaction.guild);
     await interaction.editReply([
-      "**Studio layout created.**",
+      "**Ali Studio layout created.**",
       `• Roles created: ${result.rolesCreated}`,
       `• Categories created: ${result.categoriesCreated}`,
       `• Channels created: ${result.channelsCreated}`,
@@ -54,7 +54,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
       "Existing categories and channels were not renamed or deleted.",
     ].join("\n"));
   } catch (error) {
-    console.error("Studio setup failed:", error);
+    console.error("Ali Studio setup failed:", error);
     await interaction.editReply("Setup stopped because Discord returned an error. Check the bot logs and confirm it has Manage Roles and Manage Channels, and that its role is above the roles it creates.");
   }
 });
