@@ -5,6 +5,7 @@ const { sendWelcome, handle: handleWelcome } = require("./welcome");
 const { setup: setupTickets, component: handleTicketComponent } = require("./tickets");
 const { configureLogs, moderate, warnings, logEvents } = require("./admin");
 const { suggestions, handleSuggestionVote, autorole, assignAutorole, announce } = require("./community");
+const { handleMessage, rank, leaderboard, levelSettings, setAfk } = require("./engagement");
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -14,6 +15,7 @@ if (!token) {
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 logEvents(client);
+client.on(Events.MessageCreate, message => handleMessage(message).catch(error => console.error("[engagement] Failed:", error)));
 
 client.once(Events.ClientReady, readyClient => console.log("Ali Studio online as " + readyClient.user.tag));
 client.on(Events.GuildMemberAdd, member => {
@@ -50,6 +52,10 @@ client.on(Events.InteractionCreate, async interaction => {
     if (interaction.commandName === "suggest") return await suggestions(interaction);
     if (interaction.commandName === "autorole") return await autorole(interaction);
     if (interaction.commandName === "announce") return await announce(interaction);
+    if (interaction.commandName === "rank") return await rank(interaction);
+    if (interaction.commandName === "leaderboard") return await leaderboard(interaction);
+    if (interaction.commandName === "levels") return await levelSettings(interaction);
+    if (interaction.commandName === "afk") return await setAfk(interaction);
     if (interaction.commandName === "ali-studio-status") return await interaction.reply({ content: "Ali Studio is online. Connected to **" + interaction.guild.name + "**.", ephemeral: true });
     if (interaction.commandName !== "setup") return;
     if (!interaction.inGuild() || !interaction.guild) return interaction.reply({ content: "Use this command inside your Ali Studio server.", ephemeral: true });
