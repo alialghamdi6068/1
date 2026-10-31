@@ -2,6 +2,7 @@ require("dotenv").config();
 const { Client, GatewayIntentBits, Events, PermissionFlagsBits } = require("discord.js");
 const { previewSetup, applySetup } = require("./setup");
 const { sendWelcome, handle: handleWelcome } = require("./welcome");
+const { setup: setupTickets, component: handleTicketComponent } = require("./tickets");
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -18,8 +19,18 @@ client.once(Events.ClientReady, (readyClient) => {
 client.on(Events.GuildMemberAdd, (member) => { sendWelcome(member).catch((error) => console.error("[welcome] Failed:", error)); });
 
 client.on(Events.InteractionCreate, async (interaction) => {
+  if (interaction.isButton()) {
+    try { await handleTicketComponent(interaction); }
+    catch (error) { console.error("[tickets] Component failed:", error); const payload={content:"تعذر تنفيذ العملية. راجع سجل البوت وصلاحياته.",ephemeral:true}; if(interaction.replied||interaction.deferred) await interaction.followUp(payload).catch(()=>{}); else await interaction.reply(payload).catch(()=>{}); }
+    return;
+  }
   if (!interaction.isChatInputCommand()) return;
 
+  if (interaction.commandName === "ticket") {
+    if (!interaction.memberPermissions?.has(PermissionFlagsBits.ManageGuild)) { await interaction.reply({content:"تحتاج صلاحية إدارة السيرفر.",ephemeral:true}); return; }
+    try { await setupTickets(interaction); } catch(error) { console.error("[tickets] Setup failed:",error); const p={content:"فشل إعداد نظام التذاكر. تأكد من صلاحيات البوت.",ephemeral:true}; if(interaction.replied||interaction.deferred) await interaction.followUp(p).catch(()=>{}); else await interaction.reply(p).catch(()=>{}); }
+    return;
+  }
   if (interaction.commandName === "welcome") {
     try { await handleWelcome(interaction); }
     catch (error) { console.error("[welcome] Command failed:", error); const reply = { content: "صار خطأ أثناء تنفيذ أمر الترحيب. راجع سجل البوت.", ephemeral: true }; if (interaction.replied || interaction.deferred) await interaction.followUp(reply).catch(() => {}); else await interaction.reply(reply).catch(() => {}); }
