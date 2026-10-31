@@ -4,20 +4,20 @@ const { REST, Routes, SlashCommandBuilder, PermissionFlagsBits } = require("disc
 const commands = [
   new SlashCommandBuilder()
     .setName("setup")
-    .setDescription("Preview or create the tailored Studio server layout")
+    .setDescription("Preview or create the tailored Ali Studio server layout")
     .addStringOption((option) =>
       option.setName("mode")
         .setDescription("Preview the plan first, or apply it to the server")
         .setRequired(true)
         .addChoices(
           { name: "Preview only", value: "preview" },
-          { name: "Create Studio layout", value: "apply" },
+          { name: "Create Ali Studio layout", value: "apply" },
         ),
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   new SlashCommandBuilder()
-    .setName("studio-status")
-    .setDescription("Show the Studio setup bot status")
+    .setName("ali-studio-status")
+    .setDescription("Show the Ali Studio setup bot status")
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
 ].map((command) => command.toJSON());
 
@@ -28,7 +28,7 @@ async function main() {
   }
   const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
   await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), { body: commands });
-  console.log("Studio slash commands registered.");
+  console.log("Ali Studio slash commands registered.");
 }
 
 main().catch((error) => {
