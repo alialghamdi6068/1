@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Client, GatewayIntentBits, Events, PermissionFlagsBits } = require("discord.js");
 const { previewSetup, applySetup } = require("./setup");
+const { sendWelcome, handle: handleWelcome } = require("./welcome");
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -8,14 +9,22 @@ if (!token) {
   process.exit(1);
 }
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ali Studio online as ${readyClient.user.tag}`);
 });
 
+client.on(Events.GuildMemberAdd, (member) => { sendWelcome(member).catch((error) => console.error("[welcome] Failed:", error)); });
+
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === "welcome") {
+    try { await handleWelcome(interaction); }
+    catch (error) { console.error("[welcome] Command failed:", error); const reply = { content: "صار خطأ أثناء تنفيذ أمر الترحيب. راجع سجل البوت.", ephemeral: true }; if (interaction.replied || interaction.deferred) await interaction.followUp(reply).catch(() => {}); else await interaction.reply(reply).catch(() => {}); }
+    return;
+  }
 
   if (interaction.commandName === "ali-studio-status") {
     await interaction.reply({
