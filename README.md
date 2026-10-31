@@ -37,6 +37,11 @@ A tailored setup bot for **Ali Studio**, a programming and technology community.
 
 Run `/ticket setup` as a server manager and select a text panel channel, a category for ticket channels, and a text log channel. Members open private tickets from the published button. Ticket owners can close their own ticket; managers can reopen or delete tickets. Deletion sends a text transcript to the configured log channel first. Ticket settings and ticket records are stored in the same persistent SQLite database under `data/`.
 
+
+## Moderation and logs
+
+Moderation commands: `/mod ban`, `/mod kick`, `/mod timeout`, `/mod warn`, `/mod purge`, and `/warnings`. Configure event logs with `/logs setup` to receive message edits/deletions and member join/leave events. Moderation cases are stored in SQLite.
+
 ## Requirements
 - Node.js 20.11 or newer
 - Discord bot with Manage Roles, Manage Channels, View Channels, and Send Messages permissions
