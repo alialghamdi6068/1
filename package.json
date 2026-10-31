@@ -1,8 +1,8 @@
 {
-  "name": "studio-server-setup",
+  "name": "ali-studio-server-setup",
   "version": "1.0.0",
   "private": true,
-  "description": "A tailored Discord setup bot for a creative Studio server.",
+  "description": "A tailored Discord setup bot for a creative Ali Studio server.",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
