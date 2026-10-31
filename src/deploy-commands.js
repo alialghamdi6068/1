@@ -4,7 +4,7 @@ const { REST, Routes, SlashCommandBuilder, PermissionFlagsBits } = require("disc
 const commands = [
   new SlashCommandBuilder()
     .setName("setup")
-    .setDescription("Preview or create the tailored Ali Studio server layout")
+    .setDescription("Preview or create the tailored Ali Ali Studio server layout")
     .addStringOption((option) =>
       option.setName("mode")
         .setDescription("Preview the plan first, or apply it to the server")
