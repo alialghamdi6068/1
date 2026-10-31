@@ -1,6 +1,6 @@
 # Ali Studio Discord Setup Bot
 
-A tailored setup bot for **Ali Studio**, a programming and technology community. This is not a generic gaming server or an editing/creator ali-studio template.
+A tailored setup bot for **Ali Studio**, a programming and technology community. This is not a generic gaming server or an editing/creator template.
 
 ## Role groups
 
@@ -33,7 +33,7 @@ A tailored setup bot for **Ali Studio**, a programming and technology community.
 - **Voice** — general, coding, gaming
 - **Staff Rooms** — private staff chat, logs, development room
 
-## Requirements
+## Welcome system\n\nThe `/welcome` command group configures a per-server welcome embed. Settings are stored in SQLite at `data/ali-studio.sqlite` and survive restarts. The embed uses the joining member's own avatar and live server member count.\n\nAvailable commands: `/welcome setup`, `/welcome channel`, `/welcome title`, `/welcome message`, `/welcome color`, `/welcome footer`, `/welcome count`, `/welcome preview`, `/welcome test`, `/welcome settings`, `/welcome enable`, and `/welcome disable`. Text supports `{user}`, `{username}`, `{server}`, and `{member_count}`.\n\nEnable the **Server Members Intent** in the Discord Developer Portal (Bot → Privileged Gateway Intents) so join events are delivered. Keep the `data/` directory persistent when hosting and back it up with the bot.\n\n## Requirements
 - Node.js 20.11 or newer
 - Discord bot with Manage Roles, Manage Channels, View Channels, and Send Messages permissions
 - Place the bot's highest role above the roles it creates
@@ -48,6 +48,6 @@ A tailored setup bot for **Ali Studio**, a programming and technology community.
 
 ## Commands
 - `/setup` — preview or create the configured roles and channels.
-- `/ali-studio-status` — check the bot status.
+- `/ali-studio-status` — check the bot status.\n- `/welcome ...` — configure the welcome embed.
 
 The setup skips matching existing items and does not delete channels or roles. It does not assign paid/community roles to members automatically. Never commit `.env` or share the bot token.
