@@ -6,6 +6,7 @@ const { setup: setupTickets, component: handleTicketComponent } = require("./tic
 const { configureLogs, moderate, warnings, logEvents } = require("./admin");
 const { suggestions, handleSuggestionVote, autorole, assignAutorole, announce } = require("./community");
 const { handleMessage, rank, leaderboard, levelSettings, setAfk } = require("./engagement");
+const extra = require("./extra");
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -15,7 +16,10 @@ if (!token) {
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 logEvents(client);
-client.on(Events.MessageCreate, message => handleMessage(message).catch(error => console.error("[engagement] Failed:", error)));
+client.on(Events.MessageCreate, message => { handleMessage(message).catch(error => console.error("[engagement] Failed:", error)); extra.messageHandler(message).catch(console.error); });
+extra.start(client);
+client.on(Events.GuildMemberAdd, member => extra.memberJoin(member).catch(console.error));
+client.on(Events.MessageReactionAdd, (reaction, user) => extra.starboard(reaction, user).catch(console.error));
 
 client.once(Events.ClientReady, readyClient => console.log("Ali Studio online as " + readyClient.user.tag));
 client.on(Events.GuildMemberAdd, member => {
@@ -27,6 +31,7 @@ client.on(Events.InteractionCreate, async interaction => {
   if (interaction.isButton()) {
     try {
       if (await handleSuggestionVote(interaction)) return;
+      if (await extra.handleButton(interaction)) return;
       await handleTicketComponent(interaction);
     } catch (error) {
       console.error("[components] Failed:", error);
@@ -56,6 +61,12 @@ client.on(Events.InteractionCreate, async interaction => {
     if (interaction.commandName === "leaderboard") return await leaderboard(interaction);
     if (interaction.commandName === "levels") return await levelSettings(interaction);
     if (interaction.commandName === "afk") return await setAfk(interaction);
+    if (interaction.commandName === "giveaway") return await extra.giveaway(interaction);
+    if (interaction.commandName === "remind") return await extra.reminder(interaction);
+    if (interaction.commandName === "info") return await extra.info(interaction);
+    if (interaction.commandName === "role") return await extra.roleManage(interaction);
+    if (interaction.commandName === "backup") return await extra.backup(interaction);
+    if (interaction.commandName === "ali-config") return await extra.configure(interaction);
     if (interaction.commandName === "ali-studio-status") return await interaction.reply({ content: "Ali Studio is online. Connected to **" + interaction.guild.name + "**.", ephemeral: true });
     if (interaction.commandName !== "setup") return;
     if (!interaction.inGuild() || !interaction.guild) return interaction.reply({ content: "Use this command inside your Ali Studio server.", ephemeral: true });
