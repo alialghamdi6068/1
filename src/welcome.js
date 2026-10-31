@@ -74,7 +74,8 @@ async function handle(interaction) {
     await interaction.reply({content:["**إعدادات الترحيب**","الروم: " + (cfg.channel_id ? "<#" + cfg.channel_id + ">" : "غير محدد"),"الحالة: " + (cfg.enabled ? "يعمل" : "متوقف"),"اللون: " + cfg.color,"عدد الأعضاء: " + (cfg.show_member_count ? "ظاهر" : "مخفي"),"العنوان: " + cfg.title,"النص: " + cfg.message].join("\n").slice(0,1900),ephemeral:true}); return;
   }
   if (sub === "preview" || sub === "test") {
-    const member = sub === "test" ? (interaction.options.getMember("member") || interaction.member) : interaction.member;
+    const selected = sub === "test" ? interaction.options.getUser("member") : null;
+    const member = await interaction.guild.members.fetch(selected?.id || interaction.user.id);
     await interaction.reply({embeds:[embed(member,cfg)],ephemeral:true});
   }
 }
