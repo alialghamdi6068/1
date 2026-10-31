@@ -3,6 +3,7 @@ const { Client, GatewayIntentBits, Events, PermissionFlagsBits } = require("disc
 const { previewSetup, applySetup } = require("./setup");
 const { sendWelcome, handle: handleWelcome } = require("./welcome");
 const { setup: setupTickets, component: handleTicketComponent } = require("./tickets");
+const { configureLogs, moderate, warnings, logEvents } = require("./admin");
 
 const token = process.env.DISCORD_TOKEN;
 if (!token) {
@@ -11,6 +12,8 @@ if (!token) {
 }
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
+
+logEvents(client);
 
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ali Studio online as ${readyClient.user.tag}`);
@@ -26,6 +29,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
   if (!interaction.isChatInputCommand()) return;
 
+  if (interaction.commandName === "logs") { try { await configureLogs(interaction); } catch(e) { console.error("[logs]",e); await interaction.reply({content:"فشل إعداد السجلات.",ephemeral:true}).catch(()=>{}); } return; }
+  if (interaction.commandName === "mod") { if (!interaction.memberPermissions?.has(PermissionFlagsBits.ModerateMembers) && !interaction.memberPermissions?.has(PermissionFlagsBits.BanMembers) && !interaction.memberPermissions?.has(PermissionFlagsBits.ManageMessages)) { await interaction.reply({content:"ما عندك صلاحية تنفيذ أوامر الإدارة.",ephemeral:true}); return; } try { await moderate(interaction); } catch(e) { console.error("[moderation]",e); const p={content:"صار خطأ أثناء تنفيذ الأمر.",ephemeral:true}; if(interaction.replied||interaction.deferred) await interaction.followUp(p).catch(()=>{}); else await interaction.reply(p).catch(()=>{}); } return; }
+  if (interaction.commandName === "warnings") { try { await warnings(interaction); } catch(e) { console.error("[warnings]",e); await interaction.reply({content:"تعذر عرض السجل.",ephemeral:true}).catch(()=>{}); } return; }
   if (interaction.commandName === "ticket") {
     if (!interaction.memberPermissions?.has(PermissionFlagsBits.ManageGuild)) { await interaction.reply({content:"تحتاج صلاحية إدارة السيرفر.",ephemeral:true}); return; }
     try { await setupTickets(interaction); } catch(error) { console.error("[tickets] Setup failed:",error); const p={content:"فشل إعداد نظام التذاكر. تأكد من صلاحيات البوت.",ephemeral:true}; if(interaction.replied||interaction.deferred) await interaction.followUp(p).catch(()=>{}); else await interaction.reply(p).catch(()=>{}); }
