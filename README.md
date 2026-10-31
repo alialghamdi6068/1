@@ -23,6 +23,7 @@ A Discord community bot for **Ali Studio** with server setup, welcome messages, 
 - **Custom Commands:** staff-managed text commands using the ! prefix.
 - **Information and roles:** ping, avatar, user/server information, and staff role assignment.
 - **Database Export:** administrator-only SQLite backup attachment.
+- **Polls:** interactive polls with 2–5 options, persistent votes, vote changes, live totals, and staff-controlled closing.
 
 All persistent bot data is stored in `data/ali-studio.sqlite`. Keep the `data/` directory persistent and include it in your backup routine.
 
@@ -52,6 +53,8 @@ All persistent bot data is stored in `data/ali-studio.sqlite`. Keep the `data/` 
 | `/levels` | Enable, disable, or set level-up announcement channel (staff) |
 | `/afk` | Set your AFK status; it clears when you next chat |
 | `/giveaway` | Start a timed giveaway (staff) |
+| `/poll` | Create a poll with 2–5 options separated by `|` |
+| `/poll-end` | Close a poll by its ID (staff) |
 | `/remind` | Create a personal reminder |
 | `/info ping`, `avatar`, `user`, `server` | Utility and information commands |
 | `/role add`, `remove` | Manage member roles (staff) |
