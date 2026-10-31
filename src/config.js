@@ -1,6 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 
-// Studio is a programming/technology community, not a generic creator/editing server.
+// Ali Studio is a programming/technology community, not a generic creator/editing server.
 const roles = [
   // Leadership and staff
   { name: "𝓞𝔀𝓷𝓮𝓻", color: "#F1C40F", permissions: [PermissionFlagsBits.Administrator], hoist: true },
@@ -27,10 +27,10 @@ const categories = [
   {
     name: "✦・𝓢𝓽𝓾𝓭𝓲𝓸 𝓘𝓷𝓯𝓸",
     channels: [
-      { name: "📌・𝔀𝓮𝓵𝓬𝓸𝓶𝓮", type: "text", topic: "Welcome to Studio — programming, technology, and Minecraft clients." },
-      { name: "📢・𝓪𝓷𝓷𝓸𝓾𝓷𝓬𝓮𝓶𝓮𝓷𝓽𝓼", type: "text", readOnly: true, topic: "Official Studio announcements and project releases." },
-      { name: "📜・𝓻𝓾𝓵𝓮𝓼", type: "text", readOnly: true, topic: "Studio community rules." },
-      { name: "🗺・𝓼𝓽𝓾𝓭𝓲𝓸-𝓲𝓷𝓯𝓸", type: "text", topic: "Information about Studio, its projects, and services." },
+      { name: "📌・𝔀𝓮𝓵𝓬𝓸𝓶𝓮", type: "text", topic: "Welcome to Ali Studio — programming, technology, and Minecraft clients." },
+      { name: "📢・𝓪𝓷𝓷𝓸𝓾𝓷𝓬𝓮𝓶𝓮𝓷𝓽𝓼", type: "text", readOnly: true, topic: "Official Ali Studio announcements and project releases." },
+      { name: "📜・𝓻𝓾𝓵𝓮𝓼", type: "text", readOnly: true, topic: "Ali Studio community rules." },
+      { name: "🗺・𝓼𝓽𝓾𝓭𝓲𝓸-𝓲𝓷𝓯𝓸", type: "text", topic: "Information about Ali Studio, its projects, and services." },
       { name: "🎭・𝓻𝓸𝓵𝓮𝓼", type: "text", topic: "Roles for clients, supporters, and community members." },
     ],
   },
@@ -40,7 +40,7 @@ const categories = [
       { name: "💬・𝓬𝓱𝓪𝓽", type: "text", topic: "Community chat." },
       { name: "🤖・𝓫𝓸𝓽-𝓬𝓸𝓶𝓶𝓪𝓷𝓭𝓼", type: "text", topic: "Use bot commands here." },
       { name: "❔・𝓺𝓾𝓮𝓼𝓽𝓲𝓸𝓷𝓼", type: "text", topic: "Ask programming, setup, and technology questions." },
-      { name: "💡・𝓼𝓾𝓰𝓰𝓮𝓼𝓽𝓲𝓸𝓷𝓼", type: "text", topic: "Suggest improvements for Studio and its projects." },
+      { name: "💡・𝓼𝓾𝓰𝓰𝓮𝓼𝓽𝓲𝓸𝓷𝓼", type: "text", topic: "Suggest improvements for Ali Studio and its projects." },
       { name: "🖼・𝓼𝓱𝓸𝔀𝓬𝓪𝓼𝓮", type: "text", topic: "Show your code, projects, tools, and creations." },
     ],
   },
@@ -67,7 +67,7 @@ const categories = [
   {
     name: "✦・𝓢𝓾𝓹𝓹𝓸𝓻𝓽",
     channels: [
-      { name: "🎫・𝓬𝓻𝓮𝓪𝓽𝓮-𝓽𝓲𝓬𝓴𝓮𝓽", type: "text", topic: "Open a support ticket for Studio projects and services." },
+      { name: "🎫・𝓬𝓻𝓮𝓪𝓽𝓮-𝓽𝓲𝓬𝓴𝓮𝓽", type: "text", topic: "Open a support ticket for Ali Studio projects and services." },
       { name: "💳・𝓹𝓻𝓮𝓶𝓲𝓾𝓶-𝓼𝓾𝓹𝓹𝓸𝓻𝓽", type: "text", topic: "Support for VIP and Premium members." },
       { name: "📦・𝓬𝓵𝓲𝓮𝓷𝓽-𝓼𝓾𝓹𝓹𝓸𝓻𝓽", type: "text", topic: "Help with Minecraft clients and technical setup." },
       { name: "📚・𝓯𝓪𝓺", type: "text", topic: "Frequently asked questions." },
