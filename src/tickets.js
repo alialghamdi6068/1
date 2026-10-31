@@ -10,7 +10,7 @@ const dataDir = path.join(process.cwd(), "data");
 fs.mkdirSync(dataDir, { recursive: true });
 const db = new Database(path.join(dataDir, "ali-studio.sqlite"));
 db.pragma("journal_mode = WAL");
-db.exec(\`
+db.exec(`
 CREATE TABLE IF NOT EXISTS ticket_config (
  guild_id TEXT PRIMARY KEY, category_id TEXT, log_channel_id TEXT, panel_channel_id TEXT
 );
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS tickets (
 );
 CREATE UNIQUE INDEX IF NOT EXISTS one_open_ticket_per_user
 ON tickets(guild_id, owner_id) WHERE status = 'open';
-\`);
+`);
 const configGet = db.prepare("SELECT * FROM ticket_config WHERE guild_id = ?");
 const configUpsert = db.prepare("INSERT INTO ticket_config (guild_id,category_id,log_channel_id,panel_channel_id) VALUES (@guild_id,@category_id,@log_channel_id,@panel_channel_id) ON CONFLICT(guild_id) DO UPDATE SET category_id=excluded.category_id,log_channel_id=excluded.log_channel_id,panel_channel_id=excluded.panel_channel_id");
 const openTicket = db.prepare("SELECT * FROM tickets WHERE guild_id=? AND owner_id=? AND status='open'");
