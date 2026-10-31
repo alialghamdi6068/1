@@ -15,7 +15,7 @@ fs.mkdirSync(dataDir, { recursive: true });
 const db = new Database(path.join(dataDir, "ali-studio.sqlite"));
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
-db.exec(\`
+db.exec(`
   CREATE TABLE IF NOT EXISTS community_settings (
     guild_id TEXT PRIMARY KEY,
     suggestion_channel_id TEXT,
@@ -40,7 +40,7 @@ db.exec(\`
     vote INTEGER NOT NULL CHECK(vote IN (-1, 1)),
     PRIMARY KEY(suggestion_id, user_id)
   );
-\`);
+`);
 
 const setting = db.prepare("SELECT * FROM community_settings WHERE guild_id = ?");
 function getSettings(guildId) {
