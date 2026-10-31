@@ -1,6 +1,6 @@
-# Studio Discord Setup Bot
+# Ali Studio Discord Setup Bot
 
-A tailored setup bot for **Studio**, a programming and technology community. This is not a generic gaming server or an editing/creator studio template.
+A tailored setup bot for **Ali Studio**, a programming and technology community. This is not a generic gaming server or an editing/creator ali-studio template.
 
 ## Role groups
 
@@ -25,7 +25,7 @@ A tailored setup bot for **Studio**, a programming and technology community. Thi
 - 𝓜𝓮𝓶𝓫𝓮𝓻
 
 ## Categories
-- **Studio Info** — welcome, announcements, rules, information, roles
+- **Ali Studio Info** — welcome, announcements, rules, information, roles
 - **Community** — chat, bot commands, questions, suggestions, showcase
 - **Programming** — coding, Python, Java, web development, tools, code review
 - **Minecraft Clients** — Lunar Client, Badlion Client, Feather Client, PvP
@@ -44,10 +44,10 @@ A tailored setup bot for **Studio**, a programming and technology community. Thi
 3. Run `npm install`.
 4. Run `npm run deploy`.
 5. Run `npm start`.
-6. Run `/setup` with **Preview only** before choosing **Create Studio layout**.
+6. Run `/setup` with **Preview only** before choosing **Create Ali Studio layout**.
 
 ## Commands
 - `/setup` — preview or create the configured roles and channels.
-- `/studio-status` — check the bot status.
+- `/ali-studio-status` — check the bot status.
 
 The setup skips matching existing items and does not delete channels or roles. It does not assign paid/community roles to members automatically. Never commit `.env` or share the bot token.
