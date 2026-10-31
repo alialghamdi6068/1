@@ -71,6 +71,33 @@ const engagementCommands = [
 ];
 
 const extraCommands = [
+ new SlashCommandBuilder().setName("giveaway").setDescription("Start a timed giveaway")
+  .addStringOption(o=>o.setName("prize").setDescription("Giveaway prize").setMaxLength(200).setRequired(true))
+  .addIntegerOption(o=>o.setName("minutes").setDescription("Duration in minutes").setMinValue(1).setMaxValue(10080).setRequired(true))
+  .addIntegerOption(o=>o.setName("winners").setDescription("Number of winners").setMinValue(1).setMaxValue(20).setRequired(true))
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+ new SlashCommandBuilder().setName("remind").setDescription("Create a personal reminder")
+  .addIntegerOption(o=>o.setName("minutes").setDescription("Minutes from now").setMinValue(1).setMaxValue(525600).setRequired(true))
+  .addStringOption(o=>o.setName("text").setDescription("Reminder text").setMaxLength(500).setRequired(true)),
+ new SlashCommandBuilder().setName("info").setDescription("Show bot, user, or server information")
+  .addSubcommand(s=>s.setName("ping").setDescription("Show bot latency"))
+  .addSubcommand(s=>s.setName("avatar").setDescription("Show a user avatar").addUserOption(o=>o.setName("user").setDescription("User").setRequired(false)))
+  .addSubcommand(s=>s.setName("user").setDescription("Show user information").addUserOption(o=>o.setName("user").setDescription("User").setRequired(false)))
+  .addSubcommand(s=>s.setName("server").setDescription("Show server information")),
+ new SlashCommandBuilder().setName("role").setDescription("Manage member roles")
+  .addSubcommand(s=>s.setName("add").setDescription("Add a role").addUserOption(o=>o.setName("user").setDescription("Member").setRequired(true)).addRoleOption(o=>o.setName("role").setDescription("Role").setRequired(true)))
+  .addSubcommand(s=>s.setName("remove").setDescription("Remove a role").addUserOption(o=>o.setName("user").setDescription("Member").setRequired(true)).addRoleOption(o=>o.setName("role").setDescription("Role").setRequired(true)))
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles),
+ new SlashCommandBuilder().setName("backup").setDescription("Export the bot database").setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+ new SlashCommandBuilder().setName("ali-config").setDescription("Configure Ali Studio community systems")
+  .addSubcommand(s=>s.setName("automod").setDescription("Configure message filtering").addBooleanOption(o=>o.setName("enabled").setDescription("Enable filtering").setRequired(true)).addBooleanOption(o=>o.setName("block_links").setDescription("Block links").setRequired(false)).addIntegerOption(o=>o.setName("max_mentions").setDescription("Maximum mentions").setMinValue(1).setMaxValue(20).setRequired(false)))
+  .addSubcommand(s=>s.setName("raid").setDescription("Configure join-spike protection").addIntegerOption(o=>o.setName("limit").setDescription("Join threshold").setMinValue(2).setMaxValue(50).setRequired(true)).addIntegerOption(o=>o.setName("window").setDescription("Time window seconds").setMinValue(5).setMaxValue(120).setRequired(true)).addIntegerOption(o=>o.setName("timeout").setDescription("Timeout minutes").setMinValue(1).setMaxValue(1440).setRequired(true)))
+  .addSubcommand(s=>s.setName("starboard").setDescription("Configure starboard").addChannelOption(o=>o.setName("channel").setDescription("Destination channel").addChannelTypes(0).setRequired(true)).addIntegerOption(o=>o.setName("threshold").setDescription("Required stars").setMinValue(1).setMaxValue(50).setRequired(true)))
+  .addSubcommand(s=>s.setName("reaction-role").setDescription("Publish a role button").addRoleOption(o=>o.setName("role").setDescription("Role to grant").setRequired(true)).addStringOption(o=>o.setName("label").setDescription("Button label").setMaxLength(80).setRequired(true)).addChannelOption(o=>o.setName("channel").setDescription("Destination channel").addChannelTypes(0).setRequired(true)))
+  .addSubcommand(s=>s.setName("custom-add").setDescription("Create or update a text command").addStringOption(o=>o.setName("name").setDescription("Command name").setMaxLength(32).setRequired(true)).addStringOption(o=>o.setName("response").setDescription("Command response").setMaxLength(1900).setRequired(true)))
+  .addSubcommand(s=>s.setName("custom-remove").setDescription("Delete a custom command").addStringOption(o=>o.setName("name").setDescription("Command name").setMaxLength(32).setRequired(true)))
+  .addSubcommand(s=>s.setName("custom-list").setDescription("List custom commands"))
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
  new SlashCommandBuilder().setName("poll").setDescription("Create a community poll").addStringOption(o=>o.setName("question").setDescription("Poll question").setMaxLength(200).setRequired(true)).addStringOption(o=>o.setName("options").setDescription("Options separated by |").setMaxLength(400).setRequired(true)),
  new SlashCommandBuilder().setName("poll-end").setDescription("Close a poll").addIntegerOption(o=>o.setName("id").setDescription("Poll ID").setMinValue(1).setRequired(true)).setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
 ];
