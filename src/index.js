@@ -36,7 +36,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   if (interaction.commandName !== "setup") return;
   if (!interaction.inGuild() || !interaction.guild) {
-    await interaction.reply({ content: "Use this command inside your Ali Ali Studio server.", ephemeral: true });
+    await interaction.reply({ content: "Use this command inside your Ali Studio server.", ephemeral: true });
     return;
   }
   if (!interaction.memberPermissions?.has(PermissionFlagsBits.Administrator)) {
