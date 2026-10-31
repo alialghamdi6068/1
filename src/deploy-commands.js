@@ -26,7 +26,20 @@ const ticketCommand = new SlashCommandBuilder()
   .addChannelOption(o=>o.setName("logs").setDescription("روم سجلات التذاكر").addChannelTypes(0).setRequired(true)))
  .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild);
 
+const adminCommands = [
+ new SlashCommandBuilder().setName("mod").setDescription("أوامر إدارة الأعضاء")
+  .addSubcommand(s=>s.setName("ban").setDescription("حظر عضو").addUserOption(o=>o.setName("user").setDescription("العضو").setRequired(true)).addStringOption(o=>o.setName("reason").setDescription("السبب").setRequired(false)))
+  .addSubcommand(s=>s.setName("kick").setDescription("طرد عضو").addUserOption(o=>o.setName("user").setDescription("العضو").setRequired(true)).addStringOption(o=>o.setName("reason").setDescription("السبب").setRequired(false)))
+  .addSubcommand(s=>s.setName("timeout").setDescription("إسكات عضو مؤقتًا").addUserOption(o=>o.setName("user").setDescription("العضو").setRequired(true)).addIntegerOption(o=>o.setName("minutes").setDescription("المدة بالدقائق").setMinValue(1).setMaxValue(40320).setRequired(true)).addStringOption(o=>o.setName("reason").setDescription("السبب").setRequired(false)))
+  .addSubcommand(s=>s.setName("warn").setDescription("تسجيل تحذير").addUserOption(o=>o.setName("user").setDescription("العضو").setRequired(true)).addStringOption(o=>o.setName("reason").setDescription("السبب").setRequired(true)))
+  .addSubcommand(s=>s.setName("purge").setDescription("حذف رسائل من الروم").addIntegerOption(o=>o.setName("amount").setDescription("عدد الرسائل").setMinValue(1).setMaxValue(100).setRequired(true)))
+  .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
+ new SlashCommandBuilder().setName("warnings").setDescription("عرض سجل إجراءات عضو").addUserOption(o=>o.setName("user").setDescription("العضو").setRequired(true)).setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
+ new SlashCommandBuilder().setName("logs").setDescription("إعداد سجلات السيرفر").addSubcommand(s=>s.setName("setup").setDescription("تحديد روم السجلات").addChannelOption(o=>o.setName("channel").setDescription("روم السجلات").addChannelTypes(0).setRequired(true))).setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+];
+
 const commands = [
+  ...adminCommands,
   ticketCommand,
   welcomeCommand,
 
