@@ -70,6 +70,7 @@ async function create(interaction) {
   topic:"Ali Studio ticket #"+number+" • Owner ID: "+user.id,
   permissionOverwrites:[
    {id:guild.roles.everyone.id,deny:[PermissionFlagsBits.ViewChannel]},
+   ...guild.roles.cache.filter(role => role.id !== guild.roles.everyone.id && (role.permissions.has(PermissionFlagsBits.Administrator) || role.permissions.has(PermissionFlagsBits.ManageChannels))).map(role => ({id:role.id,allow:[PermissionFlagsBits.ViewChannel,PermissionFlagsBits.SendMessages,PermissionFlagsBits.ReadMessageHistory]})),
    {id:user.id,allow:[PermissionFlagsBits.ViewChannel,PermissionFlagsBits.SendMessages,PermissionFlagsBits.ReadMessageHistory,PermissionFlagsBits.AttachFiles,PermissionFlagsBits.EmbedLinks]},
    {id:guild.members.me.id,allow:[PermissionFlagsBits.ViewChannel,PermissionFlagsBits.SendMessages,PermissionFlagsBits.ReadMessageHistory,PermissionFlagsBits.ManageChannels,PermissionFlagsBits.ManageMessages]},
   ],
